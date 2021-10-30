@@ -10,6 +10,7 @@ const initSocket = (server) => {
     const io = socketIo(server);
     
     io.on('connection', (socket) => {
+        logger.server('Socket is running');
         socket.on('room:create', (msg) => { callEvent('room:create', msg, createRoom, {io, socket}); });
         socket.on('user:signin', (msg) => { callEvent('user:signin', msg, signInRoom, {io, socket}); });
         socket.on('room:change', (msg) => { callEvent('room:change', msg, roomChange, {io, socket}); });
