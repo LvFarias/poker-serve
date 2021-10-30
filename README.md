@@ -1,16 +1,16 @@
 # Poker Planning Serve
-![](https://img.shields.io/github/package-json/v/LvFarias/poker-server/main?style=flat-square)
-![](https://img.shields.io/github/license/LvFarias/poker-server?style=flat-square)
-![](https://img.shields.io/github/repo-size/LvFarias/poker-server?style=flat-square)
-![](https://img.shields.io/github/issues/LvFarias/poker-server?style=flat-square)
-![](https://img.shields.io/github/issues-closed-raw/LvFarias/poker-server?style=flat-square)
-![](https://img.shields.io/github/issues-pr/LvFarias/poker-server?style=flat-square)
-![](https://img.shields.io/github/contributors/LvFarias/poker-server?style=flat-square)
-![](https://img.shields.io/github/commit-activity/m/LvFarias/poker-server?style=flat-square)
-![](https://img.shields.io/github/last-commit/LvFarias/poker-server/main?style=flat-square)
-![](https://img.shields.io/github/forks/LvFarias/poker-server?style=social)
-![](https://img.shields.io/github/stars/LvFarias/poker-server?style=social)
-![](https://img.shields.io/github/watchers/LvFarias/poker-server?style=social)
+![](https://img.shields.io/github/package-json/v/LvFarias/poker-serve/main?style=flat-square)
+![](https://img.shields.io/github/license/LvFarias/poker-serve?style=flat-square)
+![](https://img.shields.io/github/repo-size/LvFarias/poker-serve?style=flat-square)
+![](https://img.shields.io/github/issues/LvFarias/poker-serve?style=flat-square)
+![](https://img.shields.io/github/issues-closed-raw/LvFarias/poker-serve?style=flat-square)
+![](https://img.shields.io/github/issues-pr/LvFarias/poker-serve?style=flat-square)
+![](https://img.shields.io/github/contributors/LvFarias/poker-serve?style=flat-square)
+![](https://img.shields.io/github/commit-activity/m/LvFarias/poker-serve?style=flat-square)
+![](https://img.shields.io/github/last-commit/LvFarias/poker-serve/main?style=flat-square)
+![](https://img.shields.io/github/forks/LvFarias/poker-serve?style=social)
+![](https://img.shields.io/github/stars/LvFarias/poker-serve?style=social)
+![](https://img.shields.io/github/watchers/LvFarias/poker-serve?style=social)
 
 ## Sumary
 
