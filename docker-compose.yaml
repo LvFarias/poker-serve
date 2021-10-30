@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  poker_db:
+    image: redis
+    container_name: poker_db
+    ports:
+      - '9773:6379'
+    volumes:
+      - poker_db:/var/lib/redis
+volumes:
+  poker_db:
