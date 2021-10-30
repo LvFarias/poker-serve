@@ -1,16 +1,16 @@
 {
-  "name": "poker-planning-server",
+  "name": "poker-server",
   "version": "0.1.0",
-  "description": "",
-  "main": "main.js",
+  "description": "A free and open-source project to make votes task points with poker style.",
+  "main": "index.js",
   "scripts": {
-    "init-db": "docker-compose up -d --build",
+    "init-redis": "docker-compose up -d --build",
     "local": "nodemon ./bin/api",
     "prod": "node ./bin/api"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LvFarias/poker-planning-server.git"
+    "url": "git+https://github.com/LvFarias/poker-server.git"
   },
   "author": "Luan Vasco de Farias <luan.vfarias@gmail.com> (https://github.com/LvFarias/)",
   "contributors": [
@@ -18,14 +18,16 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/LvFarias/poker-planning-server/issues"
+    "url": "https://github.com/LvFarias/poker-server/issues"
   },
-  "homepage": "https://github.com/LvFarias/poker-planning-server#readme",
+  "homepage": "https://github.com/LvFarias/poker-server#readme",
   "keywords": [
+    "free",
+    "open",
     "poker",
-    "server",
+    "source",
     "planning",
-    "poker-planning-server"
+    "open-source"
   ],
   "dependencies": {
     "cloudinary": "^1.26.3",
