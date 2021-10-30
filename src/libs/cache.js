@@ -11,7 +11,8 @@ class RedisCache {
         return new Promise((res, rej) => {
             this.time = 0;
             if (!this.client) {
-                this.client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, { db: process.env.REDIS_DB });
+                if (process.env.NODE_ENV == 'dev') this.client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOST, { db: process.env.REDIS_DB });
+                else this.client = redis.createClient(process.env.REDIS_URL);
                 this.interval = setInterval(() => this.closeTimeout(), 60000);
             }
             res(this.client);
