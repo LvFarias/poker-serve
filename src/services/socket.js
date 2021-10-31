@@ -32,7 +32,7 @@ const callEvent = async (event, data, callbackFn, sti) => {
 }
 
 const createRoom = async (io, socket, data) => {
-    const roomId = (Math.random() + 1).toString(36).substring(6);
+    const roomId = (Math.random() + 1).toString(36).substring(7);
     
     await socket.join(roomId);
 
@@ -80,7 +80,7 @@ const roomChange = async (io, socket, data) => {
 const listRooms = (roomsMap) => {
     const list = [];
     for (const key of roomsMap) 
-        if (key[0].length === 6) list.push(key[0]);
+        if (key[0].length <= 7) list.push(key[0]);
     return list;
 }
 
