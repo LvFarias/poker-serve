@@ -18,13 +18,13 @@ const initEndpoint = (req, res, next) => {
         message: '',
         status: 200,
     };
-    
+
     req.success = (data = {}) => {
         req.returnObj.data = data;
         req.returnObj.status = 200;
         next();
     };
-    
+
     req.error = (error, message = '', status = 400) => {
         req.returnObj.error = error;
         req.returnObj.status = status;
@@ -41,7 +41,7 @@ const endEndpoint = (req, res) => {
     if (!req.returnObj.error) delete req.returnObj.error;
     if (!req.returnObj.message) delete req.returnObj.message;
     if (!Object.keys(req.returnObj.data).length) delete req.returnObj.data;
-    endLog(`${req.method}: ${req.url}`, {status: res.statusCode, origin: res.req.headers.origin});
+    endLog(`${req.method}: ${req.url}`, { status: res.statusCode, origin: res.req.headers.origin });
     return res.status(status).json(req.returnObj);
 }
 

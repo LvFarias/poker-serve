@@ -1,7 +1,6 @@
-const { logger } = require('../libs');
-const RedisCache = require('../libs/cache');
-const cache = new RedisCache();
+const { logger, RedisCache } = require('../libs');
 
+const cache = new RedisCache();
 
 const getById = async (roomId) => {
     return new Promise(async (res, rej) => {
