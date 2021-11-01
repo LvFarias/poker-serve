@@ -77,11 +77,17 @@ const roomChange = async (io, socket, data) => {
 const listRooms = (roomsMap) => {
     const list = [];
     for (const key of roomsMap)
-        list.push(key[0]);
+        if (key[0].length <= 7) list.push(key[0]);
     return list;
 }
 
 const userChange = async (io, socket, data) => {
+    const roomId = listRooms(socket.adapter.rooms)[0];
+    if (!roomId) {
+        socket.emit('error:room-not-found');
+        return 'error:room-not-found';
+    }
+
     const room = await roomService.changeUser(roomId, data.userData).catch(logger.error);
     io.sockets.in(room.id).emit('room:changed', room);
     return room;
