@@ -23,8 +23,6 @@ const callEvent = async (event, data, callbackFn, sti) => {
 
     const ret = await callbackFn(sti.io, sti.socket, data);
     
-    const roomIds = listRooms(sti.io.sockets.adapter.rooms);
-    cache.deleteAllWithFilter(roomIds);
     logger.endLog('Socket', { event, ret });
 }
 
