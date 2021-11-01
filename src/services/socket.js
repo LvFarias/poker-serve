@@ -21,17 +21,17 @@ const initSocket = (server) => {
 const callEvent = async (event, data, callbackFn, sti) => {
     logger.initLog('Socket', { event, data });
 
-    // const roomIds = listRooms(sti.io.sockets.adapter.rooms);
     const ret = await callbackFn(sti.io, sti.socket, data);
-
-    // cache.deleteAllWithFilter(roomIds);
+    
+    const roomIds = listRooms(sti.io.sockets.adapter.rooms);
+    cache.deleteAllWithFilter(roomIds);
     logger.endLog('Socket', { event, ret });
 }
 
 const createRoom = async (io, socket, data) => {
     const roomId = (Math.random() + 1).toString(36).substring(7);
 
-    await socket.join(roomId);
+    await socket.join(`room_${roomId}`);
 
     const room = await roomService.create({
         users: [],
@@ -56,40 +56,40 @@ const signInRoom = async (io, socket, data) => {
         return 'error:room-not-found';
     }
 
-    await socket.join(room.id);
+    await socket.join(`room_${room.id}`);
 
     if (!data.user.id) data.user.id = socket.id;
     if (!data.user.name) data.user.name = getRamdomAnimal(room.users.map(u => u.name));
 
     room = await roomService.addUser(room, data.user).catch(logger.error);
 
-    io.sockets.in(room.id).emit('room:changed', room);
+    io.sockets.in(`room_${room.id}`).emit('room:changed', room);
 
     return room;
 }
 
 const roomChange = async (io, socket, data) => {
     const room = await roomService.update(data.roomData).catch(logger.error);
-    io.sockets.in(room.id).emit('room:changed', room);
+    io.sockets.in(`room_${room.id}`).emit('room:changed', room);
     return room;
 }
 
 const listRooms = (roomsMap) => {
     const list = [];
     for (const key of roomsMap)
-        if (key[0].length <= 7) list.push(key[0]);
+        if (key[0].includes('room_')) list.push(key[0]);
     return list;
 }
 
 const userChange = async (io, socket, data) => {
-    // const roomId = listRooms(socket.adapter.rooms)[0];
-    // if (!roomId) {
-    //     socket.emit('error:room-not-found');
-    //     return 'error:room-not-found';
-    // }
+    const roomIds = listRooms(socket.adapter.rooms);
+    if (roomIds.length < 1) {
+        socket.emit('error:room-not-found');
+        return 'error:room-not-found';
+    }
 
-    const room = await roomService.changeUser(roomId, data.userData).catch(logger.error);
-    io.sockets.in(room.id).emit('room:changed', room);
+    const room = await roomService.changeUser(roomIds[0], data.userData).catch(logger.error);
+    io.sockets.in(`room_${room.id}`).emit('room:changed', room);
     return room;
 }
 
@@ -97,7 +97,7 @@ const userLeave = async (io, socket, data) => {
     const roomIds = listRooms(socket.adapter.rooms);
     for (const roomId of roomIds) {
         const room = await roomService.removeUser(roomId, socket.id).catch(logger.error);
-        if (room) io.sockets.in(room.id).emit('room:changed', room);
+        if (room) io.sockets.in(`room_${room.id}`).emit('room:changed', room);
     }
     return 'leave to all rooms';
 }
