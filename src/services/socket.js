@@ -21,8 +21,10 @@ const initSocket = (server) => {
 const callEvent = async (event, data, callbackFn, sti) => {
     logger.initLog('Socket', { event, data });
 
+    const roomIds = listRooms(sti.io.sockets.adapter.rooms);
     const ret = await callbackFn(sti.io, sti.socket, data);
 
+    cache.deleteAllWithFilter(roomIds);
     logger.endLog('Socket', { event, ret });
 }
 
@@ -80,12 +82,6 @@ const listRooms = (roomsMap) => {
 }
 
 const userChange = async (io, socket, data) => {
-    // const roomId = listRooms(socket.adapter.rooms)[0];
-    // if (!roomId) {
-    //     socket.emit('error:room-not-found');
-    //     return 'error:room-not-found';
-    // }
-
     const room = await roomService.changeUser(roomId, data.userData).catch(logger.error);
     io.sockets.in(room.id).emit('room:changed', room);
     return room;
