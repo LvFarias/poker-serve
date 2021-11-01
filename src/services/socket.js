@@ -75,7 +75,7 @@ const roomChange = async (io, socket, data) => {
 const listRooms = (roomsMap) => {
     const list = [];
     for (const key of roomsMap)
-        if (key[0].includes('room_')) list.push(key[0]);
+        if (key[0].includes('room_')) list.push(key[0].replace('room_', ''));
     return list;
 }
 
