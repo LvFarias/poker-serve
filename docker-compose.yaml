@@ -5,7 +5,7 @@ services:
     image: redis
     container_name: poker_db
     ports:
-      - '9773:6379'
+      - '6779:6379'
     volumes:
       - poker_db:/var/lib/redis
 volumes:

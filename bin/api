@@ -2,21 +2,27 @@
 require('dotenv').config();
 
 const http = require('http');
+const https = require('https');
 const app = require('../src/app');
 const { logger } = require('../src/libs');
 const { socketService } = require('../src/services');
 
-const port = normalizePort(process.env.PORT || '9777');
-app.set('port', port);
+const httpPort = normalizePort(process.env.HTTP_PORT || '6780');
+const httpsPort = normalizePort(process.env.HTTPS_PORT || '6743');
 
-const server = http.createServer(app);
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(getCredentials(), app);
 
 const io = socketService.initSocket(server);
 app.io = io;
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+httpServer.listen(httpPort);
+httpServer.on('error', onError);
+httpServer.on('listening', onListening);
+
+httpsServer.listen(httpsPort);
+httpsServer.on('error', onError);
+httpsServer.on('listening', onListening);
 
 function normalizePort(val) {
   const port = parseInt(val, 10);
@@ -49,7 +55,13 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-    logger.server('Listening on ' + bind);
+  ? 'pipe ' + addr
+  : 'port ' + addr.port;
+  logger.server('Listening on ' + bind);
+}
+
+function getCredentials() {
+  const key = readFileSync(process.env.KEY_PEM || '', 'utf8');
+  const cert = readFileSync(process.env.CERT_PEM || '', 'utf8');
+  return { key, cert };
 }
